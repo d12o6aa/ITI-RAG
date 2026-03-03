@@ -1,37 +1,36 @@
 import os
-from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from app.services.vector_store import load_vector_store
 
-llm = ChatGroq(
-    temperature=0,
-    model_name="llama3-8b-8192",
-    api_key="YOUR_GROQ_API_KEY"
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    google_api_key="YOUR_GEMINI_API_KEY",
+    temperature=0 
 )
 
-def get_book_assistant_chain(mode="شرح"):
+def get_book_assistant_chain(mode="Explain"):
     vector_db = load_vector_store()
-    retriever = vector_db.as_retriever(search_kwargs={"k": 3})
+    retriever = vector_db.as_retriever(search_kwargs={"k": 5})
 
-    if mode == "شرح":
-        template = """أنت معلم خبير. استخدم النصوص التالية فقط لشرح المفهوم المطلوب بأسلوب مبسط.
+    if mode == "Explain":
+        template = """You are an expert tutor. Use the provided context to explain the concept simply.
         Context: {context}
         Question: {question}
-        الشرح (باللغة العربية):"""
+        Explanation:"""
     else:
-        template = """بناءً على النص التالي، قم بتوليد 3 أسئلة اختيار من متعدد (MCQs) مع ذكر الإجابة الصحيحة لكل سؤال.
+        template = """Based on the following text, generate 3 multiple-choice questions with answers.
         Context: {context}
         Question: {question}
-        الأسئلة:"""
+        Questions:"""
 
     QA_PROMPT = PromptTemplate(template=template, input_variables=["context", "question"])
 
-    qa_chain = RetrievalQA.from_chain_type(
+    return RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
         retriever=retriever,
         return_source_documents=True,
         chain_type_kwargs={"prompt": QA_PROMPT}
     )
-    return qa_chain

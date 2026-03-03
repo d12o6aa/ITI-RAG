@@ -1,5 +1,5 @@
 from langchain_community.document_loaders import PyMuPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from app.core.constants import CHUNK_SIZE, CHUNK_OVERLAP
 
 def load_and_split_book(file_path):
@@ -8,10 +8,7 @@ def load_and_split_book(file_path):
     
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
-        chunk_overlap=CHUNK_OVERLAP,
-        length_function=len
+        chunk_overlap=CHUNK_OVERLAP
     )
     chunks = text_splitter.split_documents(documents)
-    
-    print(f"Book splited to {len(chunks)}")
     return chunks

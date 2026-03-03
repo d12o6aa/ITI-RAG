@@ -1,0 +1,3 @@
+CHUNK_SIZE = 1500
+CHUNK_OVERLAP = 200
+VECTOR_DB_PATH = "data/vector_db"

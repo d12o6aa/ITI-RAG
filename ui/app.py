@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 
-# --- حل سحري لمشكلة الـ Event Loop في Gemini ---
 import asyncio
 try:
     asyncio.get_running_loop()
@@ -38,7 +37,6 @@ if pdf_file and api_key:
         docs = st.session_state.vector_db.similarity_search(query, k=3)
         context = "\n".join([d.page_content for d in docs])
         
-        # تعريف الموديل هنا بيحل مشاكل الـ Async
         llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
         prompt = f"Context: {context}\n\nQuestion: {query}\n\nAnswer:"
         

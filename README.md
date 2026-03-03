@@ -26,6 +26,25 @@ The core idea of this project is a robust RAG (Retrieval-Augmented Generation) S
 └── README.md                 # Documentation
 ```
 
+## 📦 Setup Instructions
+
+1. **Clone the Repository**: 
+    ```bash
+    git clone https://github.com/d12o6aa/ITI-RAG.git
+    ```
+2. **Navigate to the Project Directory**:
+    ```bash
+    cd ITI-RAG
+    ```
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. **Run the Application**:
+    ```bash
+    streamlit run ui/app.py
+    ```
+
 ## 🛠️ Usage
 
 1. Open the local URL provided by Streamlit (usually `http://localhost:8501`).

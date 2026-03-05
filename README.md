@@ -1,4 +1,4 @@
-# 📚 Smart Book Assistant (RAG System)
+# Smart Book Assistant (RAG System)
 
 ## 🌐 Live Demo
 You can try the live application here: [**Smart Book Assistant on Streamlit Cloud**](https://smart-book-assistant.streamlit.app/)
